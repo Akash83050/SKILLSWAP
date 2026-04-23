@@ -1,0 +1,13 @@
+// Button click alert
+function showAlert() {
+    alert("Thank you for visiting my portfolio!");
+}
+
+// Contact form submission
+function submitForm() {
+    document.getElementById("confirmation").innerText =
+        "Thank you! Your message has been submitted.";
+    return false; // Prevent page reload
+}
+
+
