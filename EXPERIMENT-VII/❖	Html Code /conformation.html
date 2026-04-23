@@ -1,0 +1,79 @@
+<section class="confirmation-section"➤
+
+
+<!-- Success Animation Box --➤
+<div class="confirmation-box"➤
+
+
+<!-- Big success checkmark --➤
+<div class="success-icon"➤✅</div➤
+
+
+<h2 class="confirmation-title"➤Order Placed Successfully!</h2➤
+ 
+<p class="confirmation-subtitle"➤
+Thank you, <strong➤{{ name }}</strong➤!  Your order is confirmed.
+</p➤
+
+
+<!-- Order Number --➤
+<div class="order-number-box"➤
+<p➤Order Number</p➤
+<h3 class="order-number"➤#{{ order_number }}</h3➤
+</div➤
+
+
+<!-- Delivery Info --➤
+<div class="delivery-info"➤
+<p➤ Your order will be delivered to:</p➤
+<p➤<strong➤{{ address }}, {{ city }}</strong➤</p➤
+{% if email %}
+<p➤ Confirmation will be sent to:
+<strong➤{{ email }}</strong➤</p➤
+{% endif %}
+</div➤
+
+
+<!-- Order Items Summary --➤
+<div class="order-summary-box"➤
+<h4➤ Order Summary</h4➤
+ 
+{% for item in order_items %}
+<div class="order-item-row"➤
+<span➤{{ item.emoji }} {{ item.name }} ×
+{{ item.quantity }}</span➤
+<span➤₹{{ item.total }}</span➤
+</div➤
+{% endfor %}
+
+
+<div class="summary-divider"➤</div➤
+
+
+<div class="order-item-row total-row"➤
+<strong➤Total Paid:</strong➤
+<strong class="confirm-total"➤₹{{ order_total }}</strong➤
+</div➤
+</div➤
+
+
+<!-- Note about simulated payment --➤
+<div class="simulation-note"➤
+ℹ This is a simulated order for project demonstration. No real payment was processed.
+</div➤
+
+
+<!-- Action Buttons --➤
+<div class="confirmation-actions"➤
+<a href="{% url 'index' %}" class="btn btn-primary"➤
+ 
+ Continue Shopping
+</a➤
+</div➤
+
+
+</div➤
+</section➤
+
+
+{% endblock %}
