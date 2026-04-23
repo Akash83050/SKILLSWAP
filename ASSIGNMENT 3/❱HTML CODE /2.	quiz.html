@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Master - Question {{ current }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="quiz-card">
+<!-- Header -->
+<div class="quiz-header">
+<div class="question-counter">Question {{ current }} of {{ total }}</div>
+<div class="timer-box" id="timerBox">
+  <span id="timer">{{ time_limit }}</span>s
+</div>
+</div>
+{% if negative %}
+<div class="negative-notice">  Negative marking enabled: -0.25 per wrong answer</div>
+{% endif %}
+<!-- Progress Bar -->
+<div class="progress-bar-outer">
+<div class="progress-bar-inner" style="width: {{ (current / total * 100)|int }}%"></div>
+</div>
+<!-- Question -->
+<div class="question-box">
+<p class="question-text">{{ question.question }}</p>
+</div>
+ 
+<!-- Options -->
+<form method="POST" id="quizForm">
+<div class="options-grid">
+{% for option in options %}
+<label class="option-label" onclick="selectOption(this)">
+<input type="radio" name="answer" value="{{ option }}" required>
+<span class="option-text">{{ option }}</span>
+</label>
+{% endfor %}
+</div>
+<button type="submit" class="btn-submit" id="submitBtn">
+{% if current == total %}   Submit Quiz
+{% else %}
+Next Question →
+{% endif %}
+</button>
+</form>
+</div>
+</div>
+<script>
+let timeLeft = {{ time_limit }};
+const timerEl = document.getElementById('timer'); const timerBox = document.getElementById('timerBox'); const countdown = setInterval(() => {
+timeLeft--;
+timerEl.textContent = timeLeft;
+if (timeLeft <= 10) { timerBox.classList.add('timer-warning');
+}
+if (timeLeft <= 5) { timerBox.classList.add('timer-danger');
+}
+if (timeLeft <= 0) { clearInterval(countdown);
+// Auto-submit with no answer selected
+const form = document.getElementById('quizForm');
+// Add a hidden input for unanswered
+const hidden = document.createElement('input'); hidden.type = 'hidden';
+hidden.name = 'answer'; hidden.value = ' TIMEOUT '; form.appendChild(hidden); form.submit();
+}
+}, 1000);
+function selectOption(label) {
+document.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected')); label.classList.add('selected');
+}
+document.getElementById('quizForm').addEventListener('submit', () => { clearInterval(countdown);
+});
+</script>
+</body>
+</html>
