@@ -1,0 +1,162 @@
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+<div>
+<h1 class="page-title mb-1">
+<i class="bi bi-people-fill me-2"></i>My Contacts
+ 
+</h1>
+<p class="text-muted mb-0">
+{% if query %}
+Showing <strong>{{ result_count }}</strong> result(s) for "<em>{{ query }}</em>"
+{% else %}
+You have <strong>{{ total_contacts }}</strong> contact{{ total_contacts|pluralize }}
+saved.
+{% endif %}
+</p>
+</div>
+<a href="{% url 'add_contact' %}" class="btn btn-primary btn-lg shadow">
+<i class="bi bi-person-plus-fill me-2"></i>Add New Contact
+</a>
+</div>
+
+
+<!-- ───── SEARCH BAR ───── -->
+<!-- Sends a GET request to the same page with ?q=search_term -->
+<div class="card search-card mb-4 shadow-sm">
+<div class="card-body py-3">
+<form method="GET" action="{% url 'index' %}" class="d-flex gap-2">
+<div class="input-group">
+<span class="input-group-text bg-white border-end-0">
+<i class="bi bi-search text-muted"></i>
+</span>
+<input
+type="text" name="q" value="{{ query }}"
+class="form-control border-start-0 ps-0" placeholder="Search by name, phone, or email..."
+ 
+autocomplete="off"
+>
+</div>
+<button type="submit" class="btn btn-primary px-4"> Search
+</button>
+{% if query %}
+<a href="{% url 'index' %}" class="btn btn-outline-secondary px-3" title="Clear search">
+<i class="bi bi-x-lg"></i>
+</a>
+{% endif %}
+</form>
+</div>
+</div>
+
+
+<!-- ───── CONTACTS TABLE ───── -->
+{% if contacts %}
+<div class="card shadow-sm">
+<div class="card-body p-0">
+<div class="table-responsive">
+<table class="table table-hover contacts-table mb-0">
+<thead>
+<tr>
+<th>#</th>
+<th><i class="bi bi-person me-1"></i>Name</th>
+<th><i class="bi bi-telephone me-1"></i>Phone</th>
+<th><i class="bi bi-envelope me-1"></i>Email</th>
+<th><i class="bi bi-geo-alt me-1"></i>Address</th>
+<th class="text-center">Actions</th>
+ 
+</tr>
+</thead>
+<tbody>
+<!-- Loop through each contact — Django template for loop -->
+{% for contact in contacts %}
+<tr>
+<!-- forloop.counter gives 1, 2, 3, ... automatically -->
+<td class="text-muted">{{ forloop.counter }}</td>
+
+
+<td>
+<!-- Avatar circle with first letter of name -->
+<div class="d-flex align-items-center gap-2">
+<div class="avatar-circle">
+{{ contact.name|first|upper }}
+</div>
+<a href="{% url 'contact_detail' contact.pk %}" class="contact-name-link">
+{{ contact.name }}
+</a>
+</div>
+</td>
+
+
+<td>
+<a href="tel:{{ contact.phone }}" class="text-decoration-none text-dark">
+<i class="bi bi-telephone-fill text-success me-1"></i>
+{{ contact.phone }}
+</a>
+</td>
+
+
+<td>
+ 
+<a href="mailto:{{ contact.email }}" class="text-decoration-none text-dark">
+{{ contact.email }}
+</a>
+</td>
+
+
+<td class="text-muted">
+{% if contact.address %}
+{{ contact.address|truncatechars:30 }}
+{% else %}
+<span class="text-muted fst-italic">—</span>
+{% endif %}
+</td>
+
+
+<td class="text-center">
+<div class="action-btns d-flex gap-1 justify-content-center">
+<!-- View button -->
+<a href="{% url 'contact_detail' contact.pk %}"
+class="btn btn-sm btn-outline-info" title="View Details">
+<i class="bi bi-eye"></i>
+</a>
+<!-- Edit button -->
+<a href="{% url 'edit_contact' contact.pk %}" class="btn btn-sm btn-outline-warning" title="Edit">
+<i class="bi bi-pencil-square"></i>
+</a>
+<!-- Delete button — links to delete confirmation page -->
+<a href="{% url 'delete_contact' contact.pk %}" class="btn btn-sm btn-outline-danger" title="Delete">
+<i class="bi bi-trash3"></i>
+ 
+</a>
+</div>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<!-- ───── EMPTY STATE — No search results ───── -->
+{% else %}
+<div class="empty-state text-center py-5">
+{% if query %}
+<div class="empty-icon mb-3"></div>
+<h4>No contacts found for "<em>{{ query }}</em>"</h4>
+<p class="text-muted">Try searching with a different name or phone number.</p>
+<a href="{% url 'index' %}" class="btn btn-outline-secondary mt-2">
+<i class="bi bi-arrow-left me-1"></i> Back to All Contacts
+</a>
+{% else %}
+<div class="empty-icon mb-3"></div>
+<h4>No contacts yet!</h4>
+<p class="text-muted">Start building your contact list by adding your first contact.</p>
+<a href="{% url 'add_contact' %}" class="btn btn-primary mt-2">
+<i class="bi bi-person-plus-fill me-2"></i>Add Your First Contact
+</a>
+{% endif %}
+ 
+</div>
+{% endif %}
+{% endblock %}
+
