@@ -1,0 +1,44 @@
+<!-- Page Hero -->
+<div class="page-hero">
+<div class="eyebrow">Edit Post #{{ post.id }}</div>
+<h1>Update Post</h1>
+<p>Make changes and save your updated post.</p>
+</div>
+
+
+<!-- Edit Form — pre-filled with existing post data -->
+<div class="form-card">
+<form method="POST" action="{{ url_for('edit', post_id=post.id) }}">
+
+
+<!-- Title Field (pre-filled) -->
+<div class="form-group">
+<label for="title">Post Title</label>
+<input type="text" id="title" name="title"
+value="{{ post.title }}"
+ 
+required autofocus
+/>
+</div>
+
+
+<!-- Content Field (pre-filled) -->
+<div class="form-group">
+<label for="content">Content</label>
+<textarea id="content" name="content" required
+>{{ post.content }}</textarea>
+</div>
+
+
+<!-- Actions -->
+<div class="form-actions">
+<button type="submit" class="btn btn-primary">Save Changes</button>
+<a href="{{ url_for('index') }}" class="btn btn-ghost">Discard</a>
+</div>
+
+
+</form>
+</div>
+
+
+{% endblock %}
