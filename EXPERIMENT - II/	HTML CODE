@@ -1,0 +1,48 @@
+<!--
+Project Title: Company Landing Page
+Name: Akash
+Date: 15-02-2026
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TechNova Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Hero Section -->
+    <header class="hero">
+        <h1>TechNova Solutions</h1>
+        <p>Innovating Technology for a Better Tomorrow</p>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>
+            TechNova Solutions is a leading IT services company delivering 
+            innovative and reliable digital solutions for businesses worldwide.
+        </p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Our Services</h2>
+
+        <div class="service-card">
+            <h3>Web Development</h3>
+            <p>We build responsive and modern websites tailored to your needs.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Mobile App Development</h3>
+            <p>High-quality Android and iOS applications for your business.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Digital Marketing</h3>
+            <p>Grow your brand visibility
+
