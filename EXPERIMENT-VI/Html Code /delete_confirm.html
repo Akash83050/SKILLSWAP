@@ -1,0 +1,61 @@
+<div class="row justify-content-center"➤
+<div class="col-md-6"➤
+<div class="card shadow border-danger"➤
+<div class="card-header bg-danger text-white text-center py-4"➤
+<div style="font-size: 3rem;"➤⚠</div➤
+<h4 class="mb-0 mt-2"➤Confirm Deletion</h4➤
+</div➤
+<div class="card-body text-center p-4"➤
+<p class="lead mb-1"➤Are you sure you want to delete</p➤
+<h5 class="text-danger fw-bold mb-3"➤"{{ contact.name }}"?</h5➤
+<p class="text-muted mb-4"➤
+<i class="bi bi-exclamation-triangle me-1"➤</i➤ This action <strong➤cannot be undone</strong➤.
+The contact and all their information will be permanently removed.
+</p➤
+
+
+<!-- Contact preview --➤
+<div class="contact-preview-box p-3 mb-4 rounded text-start"➤
+<p class="mb-1"➤<i class="bi bi-person me-2 text- muted"➤</i➤<strong➤{{ contact.name }}</strong➤</p➤
+<p class="mb-1"➤<i class="bi bi-telephone me-2 text- muted"➤</i➤{{ contact.phone }}</p➤
+<p class="mb-0"➤<i class="bi bi-envelope me-2 text- muted"➤</i➤{{ contact.email }}</p➤
+</div➤
+
+
+<div class="d-flex gap-3"➤
+ 
+<!-- POST form — actual delete happens here --➤
+<!--
+We use POST (not a simple link) for delete because:
+1.	GET requests should not change data (REST principle)
+2.	Prevents accidental deletion by visiting the URL
+--➤
+<form method="post" class="flex-fill"➤
+{% csrf_token %}
+<button type="submit" class="btn btn-danger btn-lg w-100"➤
+<i class="bi bi-trash3-fill me-2"➤</i➤Yes, Delete
+</button➤
+</form➤
+
+
+ 
+
+
+fill"➤
+ 
+<!-- Cancel — go back home --➤
+<a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg flex-
+
+<i class="bi bi-arrow-left me-2"➤</i➤Cancel
+</a➤
+</div➤
+ 
+
+
+</div➤
+</div➤
+</div➤
+</div➤
+
+
+{% endblock %}
