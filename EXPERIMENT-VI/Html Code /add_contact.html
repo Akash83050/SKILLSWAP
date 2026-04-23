@@ -1,0 +1,149 @@
+<nav aria-label="breadcrumb" class="mb-3"➤
+<ol class="breadcrumb"➤
+<li class="breadcrumb-item"➤
+<a href="{% url 'index' %}"➤<i class="bi bi-house-door me- 1"➤</i➤Home</a➤
+</li➤
+<li class="breadcrumb-item active"➤Add New Contact</li➤
+</ol➤
+</nav➤
+ 
+<!-- Form card --➤
+<div class="row justify-content-center"➤
+<div class="col-lg-7 col-md-9"➤
+<div class="card shadow form-card"➤
+<div class="card-header form-card-header"➤
+<h4 class="mb-0"➤
+<i class="bi bi-person-plus-fill me-2"➤</i➤Add New
+ 
+Contact
+ 
+
+</h4➤
+<p class="mb-0 mt-1 opacity-75 small"➤Fill in the details
+ 
+below to save a new contact.</p➤
+</div➤
+
+
+<div class="card-body p-4"➤
+<!--
+method="post" — form data is sent as POST request
+{% csrf_token %} — REQUIRED by Django for security (Cross-Site Request Forgery protection)
+Without csrf_token, Django will reject the form submission!
+--➤
+<form method="post" novalidate➤
+{% csrf_token %}
+
+
+<!-- Loop through each field in the form --➤
+{% for field in form %}
+ 
+
+
+
+
+semibold"➤
+
+
+
+
+
+
+
+
+
+
+
+
+HTML --➤
+ 
+<div class="mb-3"➤
+<!-- Field label --➤
+<label for="{{ field.id_for_label }}" class="form-label fw-
+
+{{ field.label }}
+<!-- Show a red * for required fields --➤
+{% if field.field.required %}
+<span class="text-danger"➤*</span➤
+{% endif %}
+</label➤
+
+
+<!-- Render the input widget — Django generates the
+
+{{ field }}
+
+
+<!-- Show validation errors in red --➤
+{% if field.errors %}
+{% for error in field.errors %}
+<div class="invalid-feedback d-block"➤
+<i class="bi bi-exclamation-circle me-
+ 
+1"➤</i➤{{ error }}
+
+
+
+
+error --➤
+ 
+
+</div➤
+{% endfor %}
+<!-- Add Bootstrap's is-invalid class when there's an
+
+<script➤
+ 
+document.getElementById('{{ field.id_for_label }}').clas sList.add('is-invalid');
+</script➤
+{% endif %}
+
+
+<!-- Help text (if any) --➤
+{% if field.help_text %}
+<div class="form-text text- muted"➤{{ field.help_text }}</div➤
+{% endif %}
+</div➤
+{% endfor %}
+
+
+ 
+
+
+
+
+flex-fill"➤
+ 
+<!-- Form buttons --➤
+<div class="d-flex gap-3 mt-4"➤
+<button type="submit" class="btn btn-primary btn-lg
+
+<i class="bi bi-save2 me-2"➤</i➤Save Contact
+</button➤
+<a href="{% url 'index' %}" class="btn btn-outline-
+ 
+secondary btn-lg flex-fill"➤
+<i class="bi bi-x-circle me-2"➤</i➤Cancel
+</a➤
+</div➤
+
+
+</form➤
+ 
+</div➤<!-- /card-body --➤
+</div➤<!-- /card --➤
+
+
+<!-- Small hint --➤
+<p class="text-muted text-center mt-3 small"➤
+<i class="bi bi-info-circle me-1"➤</i➤
+Fields marked with <span class="text-danger"➤*</span➤ are required.
+</p➤
+
+
+</div➤<!-- /col --➤
+</div➤<!-- /row --➤
+
+
+{% endblock %}
+
