@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSwap — Connect & Build Together</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- AUTH PAGES -->
+<div id="auth-page" class="page active">
+  <div class="auth-container">
+    <div class="auth-brand">
+      <div class="brand-icon">⚡</div>
+      <h1 class="brand-name">SkillSwap</h1>
+      <p class="brand-tagline">Trade skills. Build together.</p>
+    </div>
+    
+    <!-- Login Form -->
+    <div id="login-form" class="auth-card active">
+      <h2>Welcome back</h2>
+      <input type="email" id="login-email" placeholder="Email address" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button class="btn-primary" onclick="login()">Sign In</button>
+      <p class="auth-switch">New here? <span onclick="toggleAuth()">Create account</span></p>
+      <p id="login-error" class="error-msg"></p>
+    </div>
+    
+    <!-- Register Form -->
+    <div id="register-form" class="auth-card">
+      <h2>Join SkillSwap</h2>
+      <input type="text" id="reg-name" placeholder="Your name" />
+      <input type="email" id="reg-email" placeholder="Email address" />
+      <input type="password" id="reg-password" placeholder="Password (min 6 chars)" />
+      <button class="btn-primary" onclick="register()">Create Account</button>
+      <p class="auth-switch">Already joined? <span onclick="toggleAuth()">Sign in</span></p>
+      <p id="reg-error" class="error-msg"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app-page" class="page">
+  
+  <!-- Sidebar Nav -->
+  <nav class="sidebar">
+    <div class="nav-brand">
+      <span class="brand-icon-sm">⚡</span>
+      <span>SkillSwap</span>
+    </div>
+    <ul class="nav-links">
+      <li onclick="showSection('dashboard')" id="nav-dashboard" class="active">
+        <span class="nav-icon">◈</span> Dashboard
+      </li>
+      <li onclick="showSection('discover')" id="nav-discover">
+        <span class="nav-icon">◎</span> Discover
+      </li>
+      <li onclick="showSection('projects')" id="nav-projects">
+        <span class="nav-icon">◧</span> Projects
+      </li>
+      <li onclick="showSection('requests')" id="nav-requests">
+        <span class="nav-icon">◑</span> Requests
+        <span id="req-badge" class="badge hidden">0</span>
+      </li>
+      <li onclick="showSection('messages')" id="nav-messages">
+        <span class="nav-icon">◫</span> Messages
+        <span id="msg-badge" class="badge hidden">0</span>
+      </li>
+      <li onclick="showSection('profile')" id="nav-profile">
+        <span class="nav-icon">◉</span> Profile
+      </li>
+    </ul>
+    <div class="nav-footer">
+      <span id="nav-username"></span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Toast container (fixed, top-right) -->
+    <div id="toast-container"></div>
+
+    <!-- Notification Panel (dropdown) -->
+    <div id="notif-panel" class="notif-panel hidden">
+      <div class="notif-panel-header">
+        <span>Notifications</span>
+        <div style="display:flex;gap:0.5rem">
+          <button class="np-hdr-btn" onclick="markAllRead()">Mark all read</button>
+          <button class="np-hdr-btn danger" onclick="clearAllNotifs()">Clear all</button>
+        </div>
+      </div>
+      <div id="notif-panel-list" class="notif-panel-list"></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section id="section-dashboard" class="section active">
+      <div class="section-header">
+        <h2>Dashboard</h2>
+        <button class="notif-btn" id="notif-bell-btn" onclick="toggleNotifPanel()">
+          🔔 <span id="notif-count" class="badge hidden">0</span>
+        </button>
+      </div>
+      
+      <div class="stats-row" id="dashboard-stats"></div>
+      
+      <div class="two-col">
+        <div>
+          <h3 class="sub-heading">Best Matches for You</h3>
+          <div id="matches-list" class="card-list"></div>
+        </div>
+        <div>
+          <h3 class="sub-heading">Recent Projects</h3>
+          <div id="recent-projects" class="card-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCOVER -->
+    <section id="section-discover" class="section">
+      <div class="section-header">
+        <h2>Discover People</h2>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="discover-search" placeholder="Search by name or skill..." oninput="searchUsers()" />
+        <input type="text" id="skill-filter" placeholder="Filter by skill (e.g. React)" oninput="searchUsers()" />
+      </div>
+      <div id="users-grid" class="users-grid"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="section-projects" class="section">
+      <div class="section-header">
+        <h2>Projects</h2>
+        <button class="btn-primary sm" onclick="openModal('create-project-modal')">+ New Project</button>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="filterProjects('open', this)">Open</button>
+        <button class="tab" onclick="filterProjects('in-progress', this)">In Progress</button>
+        <button class="tab" onclick="filterProjects('completed', this)">Completed</button>
+        <button class="tab" onclick="filterProjects('mine', this)">Mine</button>
+      </div>
+      <div id="projects-grid" class="projects-grid"></div>
+    </section>
+
+    <!-- REQUESTS -->
+    <section id="section-requests" class="section">
+      <div class="section-header"><h2>Collaboration Requests</h2></div>
+      <div class="tabs">
+        <button class="tab active" onclick="showRequests('received', this)">Received</button>
+        <button class="tab" onclick="showRequests('sent', this)">Sent</button>
+      </div>
+      <div id="requests-list" class="card-list wide"></div>
+    </section>
+
+    <!-- MESSAGES -->
+    <section id="section-messages" class="section">
+      <div class="section-header"><h2>Messages</h2></div>
+      <div class="messages-layout">
+        <div class="conv-list" id="conv-list"></div>
+        <div class="chat-area" id="chat-area">
+          <div class="chat-placeholder">
+            <p>◫</p>
+            <p>Select a conversation</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="section-profile" class="section">
+      <div class="section-header"><h2>My Profile</h2></div>
+      <div class="profile-layout">
+        <div class="profile-card">
+          <div class="avatar-large" id="profile-avatar"></div>
+          <div class="profile-info">
+            <input type="text" id="profile-name" placeholder="Your name" class="profile-input big" />
+            <textarea id="profile-bio" placeholder="Tell others about yourself..." class="profile-input" rows="3"></textarea>
+          </div>
+        </div>
+        
+        <div class="skills-section">
+          <div class="skill-col">
+            <h3>Skills I Offer</h3>
+            <div class="skill-input-row">
+              <input type="text" id="skill-have-input" placeholder="Add skill (e.g. React)" />
+              <select id="skill-have-level">
+                <option>Beginner</option>
+                <option selected>Intermediate</option>
+                <option>Expert</option>
+              </select>
+              <button onclick="addSkillHave()" class="btn-add">+</button>
+            </div>
+            <div id="skills-have-list" class="skill-tags"></div>
+          </div>
+          
+          <div class="skill-col">
+            <h3>Skills I Want</h3>
+            <div class="skill-input-row">
+              <input type="text" id="skill-want-input" placeholder="Add skill (e.g. Node.js)" />
+              <button onclick="addSkillWant()" class="btn-add">+</button>
+            </div>
+            <div id="skills-want-list" class="skill-tags"></div>
+          </div>
+        </div>
+        
+        <button class="btn-primary" onclick="saveProfile()">Save Profile</button>
+        <p id="profile-msg" class="success-msg"></p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- MODALS -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeAllModals()">
+  <div onclick="event.stopPropagation()">
+    
+    <!-- Create Project Modal -->
+    <div id="create-project-modal" class="modal hidden">
+      <h3>Create New Project</h3>
+      <input type="text" id="proj-title" placeholder="Project title" />
+      <textarea id="proj-desc" placeholder="Describe your project..." rows="4"></textarea>
+      <input type="text" id="proj-skills" placeholder="Required skills (comma separated)" />
+      <select id="proj-category">
+        <option>Web Development</option>
+        <option>Mobile App</option>
+        <option>AI/ML</option>
+        <option>Game Dev</option>
+        <option>Design</option>
+        <option>Data Science</option>
+        <option>Other</option>
+      </select>
+      <button class="btn-primary" onclick="createProject()">Create Project</button>
+    </div>
+
+    <!-- Request Modal -->
+    <div id="request-modal" class="modal hidden">
+      <h3>Send Collaboration Request</h3>
+      <p id="request-to-name" class="muted-text"></p>
+      <textarea id="request-message" placeholder="Write a message..." rows="4">Hey! I'd love to collaborate on a project together. Let's connect!</textarea>
+      <button class="btn-primary" onclick="sendRequest()">Send Request</button>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="user-modal" class="modal hidden">
+      <div id="user-modal-content"></div>
+    </div>
+    
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="modal hidden">
+      <div id="project-modal-content"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
