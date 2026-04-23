@@ -1,0 +1,76 @@
+from flask import Flask, render_template, request, redirect, url_for from datetime import datetime
+
+# Initialize the Flask application app = Flask( name )
+
+# ── In-memory storage for blog posts ───────────────────────── # Each post is a dictionary with: id, title, content, date
+posts = [
+{
+"id": 1,
+"title": "Welcome to My Blog",
+"content": "This is the first post on this simple blog platform built with Flask. " "You can create, edit, and delete posts easily!",
+"date": "April 01, 2026"
+},
+{
+"id": 2,
+"title": "Getting Started with Flask",
+ 
+"content": "Flask is a lightweight WSGI web application framework in Python. " "It is designed with simplicity and flexibility in mind, making it " "perfect for small to medium web applications.",
+"date": "April 02, 2026"
+}
+]
+
+
+# Counter to generate unique post IDs next_id = 3
+
+# ── Helper: generate next unique ID ────────────────────────── def get_next_id():
+global next_id current = next_id next_id += 1 return current
+
+@app.route("/") def index():
+"""Display all blog posts on the home page.""" return render_template("index.html", posts=posts)
+
+# ── Route: Create Post (GET = show form, POST = save post) ─── @app.route("/create", methods=["GET", "POST"])
+def create():
+"""Handle creation of a new blog post.""" if request.method == "POST":
+title  = request.form.get("title", "").strip()
+ 
+content = request.form.get("content", "").strip()
+
+
+# Basic validation if title and content:
+new_post = {
+"id":	get_next_id(), "title": title, "content": content,
+"date":	datetime.now().strftime("%B %d, %Y")
+}
+posts.append(new_post) return redirect(url_for("index"))
+
+return render_template("create.html")
+
+
+# ── Route: Edit Post (GET = show pre-filled form, POST = update) ── @app.route("/edit/<int:post_id>", methods=["GET", "POST"])
+def edit(post_id):
+"""Handle editing an existing blog post.""" # Find the post with matching ID
+post = next((p for p in posts if p["id"] == post_id), None)
+
+
+if post is None:
+return redirect(url_for("index"))  # Post not found → go home
+
+
+if request.method == "POST":
+title = request.form.get("title", "").strip() content = request.form.get("content", "").strip()
+ 
+if title and content: post["title"] = title post["content"] = content
+post["date"]	= datetime.now().strftime("%B %d, %Y") + " (edited)"
+
+
+return redirect(url_for("index"))
+
+
+return render_template("edit.html", post=post)
+
+
+# ── Route: Delete Post ──────────────────────────────────────── @app.route("/delete/<int:post_id>")
+def delete(post_id):
+"""Remove a blog post by its ID and redirect home.""" global posts
+posts = [p for p in posts if p["id"] != post_id] return redirect(url_for("index"))
+if  name	== " main ": app.run(debug=True)
