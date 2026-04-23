@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Master - Results</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="result-card">
+<h1 class="result-title">Quiz Completed!  </h1>
+
+<div class="score-circle {{ level }}">
+<div class="score-number">{{ [score, 0]|max }}/{{ total }}</div>
+<div class="score-label">Score</div>
+</div>
+<div class="feedback-banner {{ level }}">
+{{ feedback }}
+</div>
+<div class="stats-row">
+<div class="stat-box correct-stat">
+<div class="stat-num">{{ result_data | selectattr('is_correct') | list | length }}</div>
+<div class="stat-label">  Correct</div>
+</div>
+<div class="stat-box wrong-stat">
+<div class="stat-num">{{ result_data | rejectattr('is_correct') | list | length }}</div>
+<div class="stat-label">  Wrong</div>
+</div>
+<div class="stat-box percent-stat">
+<div class="stat-num">{{ ((([score, 0]|max) / total) * 100) | int }}%</div>
+<div class="stat-label">  Accuracy</div>
+</div>
+</div>
+<!-- Detailed Review -->
+<div class="review-section">
+<h3>  Detailed Review</h3>
+{% for item in result_data %}
+<div class="review-item {{ 'correct-item' if item.is_correct else 'wrong-item' }}">
+<p class="review-q"><strong>Q{{ loop.index }}:</strong> {{ item.question }}</p>
+<p class="review-ans"> Your Answer:
+<span class="{{ 'correct-text' if item.is_correct else 'wrong-text' }}">
+{{ item.selected }}
+{{ ' ' if item.is_correct else ' ' }}
+</span>
+</p>
+{% if not item.is_correct %}
+<p class="review-correct">Correct Answer: <span class="correct-text">{{ item.correct_ans }}
+ 
+ </span></p>
+{% endif %}
+</div>
+{% endfor %}
+</div>
+<div class="action-buttons">
+<a href="/restart" class="btn-restart">  Restart Quiz</a>
+<a href="/" class="btn-home">  Home</a>
+</div>
+</div>
+</div>
+</body>
+</html>
