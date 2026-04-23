@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Master - Home</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="home-card">
+<div class="logo"> </div>
+<h1 class="title">Quiz Master</h1>
+<p class="subtitle">Test your Web Development Knowledge!</p>
+<div class="info-grid">
+<div class="info-box">
+<span class="info-icon"> </span>
+<span>10 Questions</span>
+</div>
+<div class="info-box">
+<span class="info-icon"> </span>
+<span>Timed Quiz</span>
+</div>
+<div class="info-box">
+<span class="info-icon"> </span>
+<span>Shufled</span>
+</div>
+<div class="info-box">
+<span class="info-icon"> </span>
+<span>Scored</span>
+</div>
+</div>
+<div class="settings-section">
+<h3>  Quiz Settings</h3>
+<div class="setting-item">
+<label for="time_limit">  Time per question (seconds):</label>
+<select id="time_limit">
+<option value="15">15 seconds</option>
+<option value="30" selected>30 seconds</option>
+<option value="45">45 seconds</option>
+<option value="60">60 seconds</option>
+</select>
+</div>
+<div class="setting-item checkbox-item">
+<label>
+ 
+<input type="checkbox" id="negative_marking">
+  Enable Negative Marking (-0.25 per wrong answer)
+</label>
+</div>
+</div>
+<button class="btn-start" onclick="startQuiz()">   Start Quiz
+</button>
+<p class="hint">Questions are randomly shufled each time!</p>
+</div>
+</div>
+<script>
+function startQuiz() {
+const time = document.getElementById('time_limit').value;
+const negative = document.getElementById('negative_marking').checked; window.location.href = `/start?time=${time}&negative=${negative}`;
+}
+</script>
+</body>
+</html>
+
