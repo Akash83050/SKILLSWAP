@@ -1,0 +1,104 @@
+<nav aria-label="breadcrumb" class="mb-3"➤
+<ol class="breadcrumb"➤
+<li class="breadcrumb-item"➤
+<a href="{% url 'index' %}"➤<i class="bi bi-house-door me- 1"➤</i➤Home</a➤
+</li➤
+<li class="breadcrumb-item active"➤Edit — {{ contact.name }}</li➤
+</ol➤
+</nav➤
+
+
+<div class="row justify-content-center"➤
+<div class="col-lg-7 col-md-9"➤
+<div class="card shadow form-card"➤
+<div class="card-header form-card-header edit-header"➤
+<h4 class="mb-0"➤
+<i class="bi bi-pencil-square me-2"➤</i➤Edit Contact
+</h4➤
+<p class="mb-0 mt-1 opacity-75 small"➤ Editing: <strong➤{{ contact.name }}</strong➤
+</p➤
+</div➤
+ 
+<div class="card-body p-4"➤
+<form method="post" novalidate➤
+{% csrf_token %}
+
+
+{% for field in form %}
+<div class="mb-3"➤
+<label for="{{ field.id_for_label }}" class="form-label fw-semibold"➤
+{{ field.label }}
+{% if field.field.required %}
+<span class="text-danger"➤*</span➤
+{% endif %}
+</label➤
+{{ field }}
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+-invalid');
+ 
+{% if field.errors %}
+{% for error in field.errors %}
+<div class="invalid-feedback d-block"➤
+<i class="bi bi-exclamation-circle me-1"➤</i➤{{ error }}
+</div➤
+{% endfor %}
+<script➤
+document.getElementById('{{ field.id_for_label }}').classList.add('is
+
+</script➤
+{% endif %}
+</div➤
+{% endfor %}
+ 
+
+
+white"➤
+
+
+
+
+flex-fill"➤
+ 
+<div class="d-flex gap-3 mt-4"➤
+<button type="submit" class="btn btn-warning btn-lg flex-fill text-
+
+<i class="bi bi-check2-circle me-2"➤</i➤Update Contact
+</button➤
+<a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg
+
+<i class="bi bi-x-circle me-2"➤</i➤Cancel
+</a➤
+</div➤
+ 
+
+
+</form➤
+</div➤
+</div➤
+
+
+<!-- Danger zone — quick delete link --➤
+<div class="text-center mt-3"➤
+<a href="{% url 'delete_contact' contact.pk %}" class="text-danger small"➤
+<i class="bi bi-trash3 me-1"➤</i➤Delete this contact instead
+</a➤
+</div➤
+
+
+</div➤
+</div➤
+{% endblock %}
