@@ -1,0 +1,3 @@
+nav a.active { color: var(--text);
+background: var(--surface);
+}
