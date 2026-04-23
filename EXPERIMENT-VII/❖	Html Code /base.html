@@ -1,0 +1,86 @@
+<!DOCTYPE html➤
+<html lang="en"➤
+<head➤
+<meta charset="UTF-8"➤
+<meta name="viewport" content="width=device-width, initial-scale=1.0"➤
+<title➤{% block title %}ShopEasy{% endblock %} | ShopEasy</title➤
+
+
+{% load static %}
+
+
+<!-- Google Fonts --➤
+<link rel="preconnect" href="https://fonts.googleapis.com"➤
+ 
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800 &family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"➤
+
+
+<!-- Our CSS file --➤
+<link rel="stylesheet" href="{% static 'store/css/style.css' %}"➤
+</head➤
+<body➤
+
+
+<!-- ===== NAVBAR ===== --➤
+<nav class="navbar"➤
+<div class="nav-container"➤
+
+
+<!-- Logo --➤
+<a href="{% url 'index' %}" class="nav-logo"➤
+ ShopEasy
+</a➤
+
+
+<!-- Navigation Links --➤
+<div class="nav-links"➤
+<a href="{% url 'index' %}" class="nav-link"➤ Home</a➤
+<a href="{% url 'cart' %}" class="nav-link cart-link"➤
+ Cart
+<!-- Cart count badge - shown only when cart has items --➤
+<span class="cart-badge" id="cart-badge"➤{{ cart_count }}</span➤
+</a➤
+</div➤
+</div➤
+ 
+</nav➤
+
+
+<!-- ===== FLASH MESSAGES (Django messages framework) ===== --➤
+{% if messages %}
+<div class="messages-container"➤
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}"➤
+{{ message }}
+</div➤
+{% endfor %}
+</div➤
+{% endif %}
+<main class="main-content"➤
+{% block content %}
+{% endblock %}
+</main➤
+<footer class="footer"➤
+<div class="footer-container"➤
+<p➤ <strong➤ShopEasy</strong➤ — Your Friendly Online Store</p➤
+<p➤Made with ❤ using Django | Experiment-7 Project</p➤
+</div➤
+</footer➤
+
+
+<!-- Toast notification (for add-to-cart messages) --➤
+<div class="toast" id="toast-message"➤</div➤
+
+
+<!-- Our JavaScript file --➤
+<script src="{% static 'store/js/script.js' %}"➤</script➤
+ 
+<!-- Extra scripts from child templates --➤
+{% block extra_js %}
+{% endblock %}
+
+
+</body➤
+</html➤
+
+
