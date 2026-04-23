@@ -1,0 +1,90 @@
+<nav aria-label="breadcrumb" class="mb-3"➤
+<ol class="breadcrumb"➤
+<li class="breadcrumb-item"➤
+<a href="{% url 'index' %}"➤<i class="bi bi-house-door me- 1"➤</i➤Home</a➤
+</li➤
+<li class="breadcrumb-item active"➤{{ contact.name }}</li➤
+</ol➤
+</nav➤
+
+
+<div class="row justify-content-center"➤
+<div class="col-lg-6 col-md-8"➤
+<div class="card shadow detail-card"➤
+<!-- Large avatar at top --➤
+<div class="card-header detail-header text-center py-4"➤
+<div class="detail-avatar mx-auto mb-3"➤
+{{ contact.name|first|upper }}
+</div➤
+<h3 class="mb-1 fw-bold"➤{{ contact.name }}</h3➤
+<small class="opacity-75"➤
+Added on {{ contact.created_at|date:"d M Y" }}
+</small➤
+</div➤
+ 
+<div class="card-body p-4"➤
+<!-- Contact details list --➤
+<ul class="list-unstyled detail-list"➤
+<li class="detail-item"➤
+<span class="detail-icon"➤<i class="bi bi-telephone-fill text-success"➤</i➤</span➤
+<div➤
+<div class="detail-label"➤Phone Number</div➤
+<a href="tel:{{ contact.phone }}" class="detail-value text-decoration-none"➤
+{{ contact.phone }}
+</a➤
+</div➤
+</li➤
+<li class="detail-item"➤
+<span class="detail-icon"➤<i class="bi bi-envelope-fill text-primary"➤</i➤</span➤
+<div➤
+<div class="detail-label"➤Email Address</div➤
+<a href="mailto:{{ contact.email }}" class="detail-value text-decoration-none"➤
+{{ contact.email }}
+</a➤
+</div➤
+</li➤
+ 
+{% if contact.address %}
+<li class="detail-item"➤
+<span class="detail-icon"➤<i class="bi bi-geo-alt-fill text- danger"➤</i➤</span➤
+<div➤
+<div class="detail-label"➤Address</div➤
+<div class="detail-value"➤{{ contact.address }}</div➤
+</div➤
+</li➤
+{% endif %}
+<li class="detail-item"➤
+<span class="detail-icon"➤<i class="bi bi-clock-fill text- warning"➤</i➤</span➤
+<div➤
+<div class="detail-label"➤Last Updated</div➤
+<div class="detail-value"➤{{ contact.updated_at|date:"d M Y, h:i A" }}</div➤
+</div➤
+</li➤
+</ul➤
+
+
+<!-- Action buttons --➤
+<div class="d-flex gap-3 mt-4"➤
+<a href="{% url 'edit_contact' contact.pk %}" class="btn btn- warning btn-lg flex-fill text-white"➤
+<i class="bi bi-pencil-square me-2"➤</i➤Edit
+ 
+</a➤
+<a href="{% url 'delete_contact' contact.pk %}" class="btn btn-outline-danger btn-lg flex-fill"➤
+<i class="bi bi-trash3 me-2"➤</i➤Delete
+</a➤
+</div➤
+
+
+<div class="text-center mt-3"➤
+<a href="{% url 'index' %}" class="text-muted small"➤
+<i class="bi bi-arrow-left me-1"➤</i➤Back to All Contacts
+</a➤
+</div➤
+</div➤
+</div➤
+</div➤
+</div➤
+
+
+{% endblock %}
+
