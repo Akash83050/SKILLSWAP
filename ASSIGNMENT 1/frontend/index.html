@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dynamic Todo List</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="app">
+<header>
+<h1>My To-Do List</h1>
+<p class="subtitle">Keep track of what matters — tasks are saved permanently.</p>
+</header>
+<section class="new-todo">
+<form id="todoForm">
+<div class="row">
+<label class="sr-only" for="todoTitle">Task title</label>
+<input id="todoTitle" type="text" maxlength="50" placeholder="Task title" autocomplete="off" required />
+<label class="sr-only" for="todoDescription">Description (optional)</label>
+<textarea id="todoDescription" rows="2" placeholder="Description (optional)"></textarea>
+</div>
+<div class="row">
+<label class="sr-only" for="todoPriority">Priority</label>
+<select id="todoPriority">
+<option value="Medium" selected>Medium priority</option>
+<option value="High">High priority</option>
+<option value="Low">Low priority</option>
+</select>
+<button type="submit">Add Task</button>
+</div>
+</form>
+</section>
+<section class="task-controls">
+<div class="filters">
+        <button data-filter="all" class="filter active">All</button>
+        <button data-filter="active" class="filter">Active</button>
+        <button data-filter="completed" class="filter">Completed</button>
+      </div>
+      <div class="search-sort">
+        <input id="searchInput" type="search" placeholder="Search tasks" />
+        <select id="sortSelect">
+          <option value="createdAt">Newest</option>
+          <option value="priority">Priority</option>
+        </select>
+      </div>
+      <div class="counts">
+        <span id="completedCount">0</span> / <span id="totalCount">0</span> completed
+      </div>
+    </section>
+ 
+    <section class="todo-list">
+      <ul id="todos"></ul>
+      <p class="empty" id="emptyState">No tasks yet. Add something to get started.</p>
+    </section>
+  </main>
+ 
+  <footer class="footer">
+    <span>Powered by Express & SQLite</span>
+  </footer>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
