@@ -1,0 +1,43 @@
+<!--
+Project Title: Interactive Quiz Application
+Name: Akash
+Date: 15-02-2026
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Interactive Quiz</h1>
+        <p>Test your knowledge with this simple JavaScript quiz.</p>
+    </header>
+
+    <!-- Quiz Container -->
+    <section class="quiz-container">
+        <h2 id="question">Question text</h2>
+
+        <form id="options">
+            <!-- Options will be loaded by JavaScript -->
+        </form>
+
+        <button id="nextBtn">Next</button>
+    </section>
+
+    <!-- Result Section -->
+    <section class="result-container" id="result">
+        <h2>Your Result</h2>
+        <p id="scoreText"></p>
+        <button onclick="restartQuiz()">Restart Quiz</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
