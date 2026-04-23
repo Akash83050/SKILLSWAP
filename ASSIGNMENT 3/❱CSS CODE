@@ -1,0 +1,396 @@
+/* ===== Base Reset & Variables ===== */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+:root {
+--primary: #6c63ff;
+--primary-dark: #4b44cc;
+--secondary: #ff6584;
+--success: #2ecc71;
+--danger: #e74c3c;
+--warning: #f39c12;
+--bg: #f0f2ff;
+--card-bg: #ffffff;
+--text: #2d3436;
+--text-light: #636e72;
+--border: #dfe6e9;
+--shadow: 0 10px 40px rgba(108, 99, 255, 0.15);
+}
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;
+display: flex;
+align-items: center; justify-content: center; padding: 20px;
+}
+.container { width: 100%;
+max-width: 680px;
+}
+/* ===== HOME PAGE ===== */
+ 
+.home-card {
+background: var(--card-bg); border-radius: 24px; padding: 48px 40px;
+box-shadow: var(--shadow); text-align: center;
+}
+.logo {
+font-size: 72px; margin-bottom: 12px;
+animation: bounce 1.5s infinite;
+}
+@keyframes bounce {
+0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); }
+}
+.title {
+font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; letter-spacing: -1px;
+}
+.subtitle {
+color: var(--text-light); font-size: 1.1rem; margin-bottom: 32px;
+}
+.info-grid { display: grid;
+grid-template-columns: repeat(4, 1fr); gap: 12px;
+margin-bottom: 32px;
+}
+.info-box { background: #f8f7ff;
+border: 2px solid #ece9ff; border-radius: 12px; padding: 14px 8px;
+font-size: 0.82rem; font-weight: 600; color: var(--primary); display: flex;
+flex-direction: column; align-items: center; gap: 6px;
+}
+.info-icon {
+font-size: 1.4rem;
+}
+ 
+/* Settings */
+.settings-section { background: #f8f7ff; border-radius: 16px; padding: 24px; margin-bottom: 28px; text-align: left;
+}
+.settings-section h3 { font-size: 1rem; color: var(--primary); margin-bottom: 16px; font-weight: 700;
+}
+.setting-item {
+margin-bottom: 14px;
+}
+.setting-item label { font-size: 0.9rem; color: var(--text); font-weight: 500; display: block; margin-bottom: 6px;
+}
+.setting-item select { width: 100%; padding: 10px 14px;
+border: 2px solid var(--border); border-radius: 10px;
+font-size: 0.9rem; background: white; color: var(--text); cursor: pointer; outline: none;
+transition: border-color 0.2s;
+}
+.setting-item select:focus { border-color: var(--primary);
+}
+.checkbox-item label { display: flex;
+align-items: center; gap: 10px;
+cursor: pointer; margin-bottom: 0;
+}
+.checkbox-item input[type="checkbox"] { width: 18px;
+height: 18px;
+accent-color: var(--primary); cursor: pointer;
+ 
+}
+.btn-start { width: 100%; padding: 16px;
+background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white;
+border: none; border-radius: 14px; font-size: 1.15rem; font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
+transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(108,99,255,0.4); margin-bottom: 16px;
+}
+.btn-start:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 28px rgba(108,99,255,0.5);
+}
+.hint {
+color: var(--text-light); font-size: 0.85rem;
+}
+/* ===== QUIZ PAGE ===== */
+.quiz-card {
+background: var(--card-bg); border-radius: 24px; padding: 36px 36px;
+box-shadow: var(--shadow);
+}
+.quiz-header { display: flex;
+justify-content: space-between; align-items: center;
+margin-bottom: 16px;
+}
+.question-counter { font-size: 0.9rem; font-weight: 700; color: var(--primary); background: #f0eeff; padding: 6px 14px; border-radius: 20px;
+}
+.timer-box {
+font-size: 0.9rem; font-weight: 700; color: var(--success); background: #e8faf0; padding: 6px 14px;
+ 
+border-radius: 20px; border: 2px solid #b2dfdb; transition: all 0.3s;
+}
+.timer-warning {
+color: var(--warning) !important; background: #fff8e1 !important;
+border-color: var(--warning) !important;
+}
+.timer-danger {
+color: var(--danger) !important; background: #fdecea !important; border-color: var(--danger) !important; animation: pulse 0.5s infinite;
+}
+@keyframes pulse {
+0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); }
+}
+.negative-notice { background: #fff3cd; border: 1px solid #ffc107; color: #856404;
+border-radius: 8px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; margin-bottom: 14px;
+}
+.progress-bar-outer { background: #ece9ff; border-radius: 10px; height: 8px;
+margin-bottom: 28px; overflow: hidden;
+}
+.progress-bar-inner {
+background: linear-gradient(90deg, var(--primary), var(--secondary)); height: 100%;
+border-radius: 10px; transition: width 0.4s ease;
+}
+.question-box {
+background: linear-gradient(135deg, #f8f7ff, #fff0f5); border-left: 5px solid var(--primary);
+border-radius: 0 14px 14px 0; padding: 20px 22px;
+margin-bottom: 24px;
+}
+.question-text {
+ 
+font-size: 1.1rem; font-weight: 600; color: var(--text); line-height: 1.6;
+}
+.options-grid { display: grid;
+grid-template-columns: 1fr 1fr; gap: 12px;
+margin-bottom: 24px;
+}
+.option-label { display: flex;
+align-items: center; gap: 12px;
+padding: 14px 18px;
+border: 2px solid var(--border); border-radius: 12px;
+cursor: pointer; transition: all 0.2s; background: #fafafa;
+}
+.option-label:hover {
+border-color: var(--primary); background: #f0eeff; transform: translateY(-1px);
+}
+.option-label.selected {
+border-color: var(--primary); background: #f0eeff;
+box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+}
+.option-label input[type="radio"] { accent-color: var(--primary); width: 18px;
+height: 18px; flex-shrink: 0;
+}
+.option-text {
+font-size: 0.9rem; font-weight: 500; color: var(--text);
+}
+.btn-submit { width: 100%; padding: 15px;
+background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white;
+border: none; border-radius: 12px; font-size: 1rem;
+ 
+font-weight: 700; cursor: pointer;
+transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(108,99,255,0.35);
+}
+.btn-submit:hover { transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(108,99,255,0.45);
+}
+/* ===== RESULT PAGE ===== */
+.result-card {
+background: var(--card-bg); border-radius: 24px; padding: 40px 36px;
+box-shadow: var(--shadow); text-align: center;
+}
+.result-title {
+font-size: 2rem; font-weight: 800; color: var(--text);
+margin-bottom: 28px;
+}
+.score-circle { width: 140px; height: 140px;
+border-radius: 50%; display: flex;
+flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 24px; border: 6px solid;
+}
+.score-circle.perfect { background: #fff9e6; border-color: #f39c12; }
+.score-circle.excellent { background: #e8faf0; border-color: var(--success); }
+.score-circle.good	{ background: #f0eeff; border-color: var(--primary); }
+.score-circle.fair	{ background: #fff3cd; border-color: var(--warning); }
+.score-circle.poor	{ background: #fdecea; border-color: var(--danger); }
+.score-number { font-size: 2rem; font-weight: 900; color: var(--text);
+}
+.score-label {
+font-size: 0.8rem; color: var(--text-light); font-weight: 600;
+}
+.feedback-banner {
+ 
+padding: 14px 24px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; margin-bottom: 28px; display: inline-block;
+}
+.feedback-banner.perfect { background: #fff9e6; color: #c87f0a; }
+.feedback-banner.excellent { background: #e8faf0; color: #1e8449; }
+.feedback-banner.good	{ background: #f0eeff; color: var(--primary); }
+.feedback-banner.fair	{ background: #fff3cd; color: #856404; }
+.feedback-banner.poor	{ background: #fdecea; color: #c0392b; }
+.stats-row { display: grid;
+grid-template-columns: repeat(3, 1fr); gap: 14px;
+margin-bottom: 32px;
+}
+.stat-box {
+border-radius: 14px; padding: 18px 10px;
+}
+.correct-stat { background: #e8faf0; }
+.wrong-stat  { background: #fdecea; }
+.percent-stat { background: #f0eeff; }
+.stat-num {
+font-size: 1.8rem; font-weight: 900; color: var(--text);
+}
+.stat-label {
+font-size: 0.8rem; color: var(--text-light); font-weight: 600; margin-top: 4px;
+}
+/* Review Section */
+.review-section { text-align: left;
+margin-bottom: 28px;
+}
+.review-section h3 { font-size: 1.1rem; color: var(--primary); font-weight: 700; margin-bottom: 14px; padding-bottom: 8px;
+border-bottom: 2px solid #ece9ff;
+}
+ 
+.review-item {
+border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border-left: 4px solid;
+}
+.correct-item { background: #f0fff4; border-color: var(--success); }
+.wrong-item { background: #fff5f5; border-color: var(--danger); }
+.review-q {
+font-size: 0.88rem; color: var(--text); margin-bottom: 6px; line-height: 1.5;
+}
+.review-ans, .review-correct { font-size: 0.85rem;
+color: var(--text-light); margin-top: 4px;
+}
+.correct-text { color: var(--success); font-weight: 700; }
+.wrong-text { color: var(--danger); font-weight: 700; }
+.action-buttons { display: flex; gap: 14px;
+}
+.btn-restart, .btn-home { flex: 1;
+padding: 14px; border-radius: 12px; font-size: 1rem;
+font-weight: 700;
+text-decoration: none; text-align: center;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-restart {
+background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white;
+box-shadow: 0 4px 16px rgba(108,99,255,0.35);
+}
+.btn-home { background: #f0f2ff; color: var(--primary);
+border: 2px solid #ece9ff;
+}
+.btn-restart:hover, .btn-home:hover { transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(108,99,255,0.3);
+}
+ 
+/* ===== Responsive ===== */ @media (max-width: 520px) {
+.home-card, .quiz-card, .result-card { padding: 28px 20px; }
+.info-grid { grid-template-columns: repeat(2, 1fr); }
+.options-grid { grid-template-columns: 1fr; }
+.stats-row { grid-template-columns: repeat(3, 1fr); }
+.title { font-size: 2rem; }
+}
+❱app.py CODE :
+
+from flask import Flask, render_template, request, session, redirect, url_for import random
+app = Flask(  name  )
+app.secret_key = 'quizmaster_secret_key_2024'
+QUESTIONS = [
+{
+"id": 1,
+"question": "Which language is used for web scripting on the client side?", "options": ["Python", "Java", "JavaScript", "C++"],
+"answer": "JavaScript"
+},
+{
+"id": 2,
+"question": "What does HTML stand for?", "options": [
+"Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"
+],
+"answer": "Hyper Text Markup Language"
+},
+{
+"id": 3,
+"question": "Which Python framework is used to build web applications?", "options": ["Django only", "Flask only", "Both Flask and Django", "Neither"], "answer": "Both Flask and Django"
+},
+{
+"id": 4,
+"question": "What does CSS stand for?", "options": [
+"Computer Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"
+],
+"answer": "Cascading Style Sheets"
+},
+{
+"id": 5,
+"question": "Which HTTP method is used to submit a form?", "options": ["GET", "POST", "PUT", "DELETE"],
+"answer": "POST"
+ 
+},
+{
+"id": 6,
+"question": "What is the correct file extension for Python files?", "options": [".pt", ".pyt", ".py", ".python"],
+"answer": ".py"
+},
+{
+"id": 7,
+"question": "Which tag is used to create a hyperlink in HTML?", "options": ["<link>", "<href>", "<a>", "<url>"],
+"answer": "<a>"
+},
+{
+"id": 8,
+"question": "In Flask, which decorator is used to define a route?", "options": ["@app.url()", "@app.route()", "@app.path()", "@app.view()"], "answer": "@app.route()"
+},
+{
+"id": 9,
+"question": "What does JSON stand for?", "options": [
+"JavaScript Object Notation", "Java Scripted Object Names", "JavaScript Output Node", "Java Simple Object Notation"
+],
+"answer": "JavaScript Object Notation"
+},
+{
+"id": 10,
+"question": "Which of the following is NOT a valid CSS property?", "options": ["color", "font-size", "text-weight", "margin"], "answer": "text-weight"
+}
+]
+
+def get_feedback(score, total):
+percentage = (score / total) * 100 if percentage == 100:
+return "  Perfect Score! Outstanding!", "perfect" elif percentage >= 80:
+return "  Excellent! Great job!", "excellent" elif percentage >= 60:
+return "  Good work! Keep it up!", "good" elif percentage >= 40:
+return "  Fair attempt. More practice needed.", "fair" else:
+return "  Don't give up! Try again!", "poor"
+
+
+@app.route('/') def index():
+ 
+return render_template('index.html')
+
+@app.route('/start') def start():
+questions = QUESTIONS.copy() random.shufle(questions) session['questions'] = questions session['current'] = 0
+session['score'] = 0 session['answers'] = []
+session['negative'] = request.args.get('negative', 'false') == 'true' session['time_limit'] = int(request.args.get('time', 30))
+return redirect(url_for('quiz'))
+
+@app.route('/quiz', methods=['GET', 'POST']) def quiz():
+if 'questions' not in session:
+return redirect(url_for('index'))
+questions = session['questions'] current = session['current']
+if request.method == 'POST':
+selected = request.form.get('answer') correct_answer = questions[current]['answer'] answers = session.get('answers', [])
+if selected == correct_answer:
+session['score'] = session.get('score', 0) + 1 answers.append({'selected': selected, 'correct': True})
+else:
+if session.get('negative'):
+session['score'] = session.get('score', 0) - 0.25
+answers.append({'selected': selected, 'correct': False, 'correct_ans': correct_answer})
+session['answers'] = answers session['current'] = current + 1 current = session['current']
+if current >= len(questions): return redirect(url_for('result'))
+return redirect(url_for('quiz'))
+if current >= len(questions): return redirect(url_for('result'))
+q = questions[current] options = q['options'].copy() random.shufle(options)
+return render_template( 'quiz.html', question=q, options=options, current=current + 1, total=len(questions),
+ 
+time_limit=session.get('time_limit', 30), negative=session.get('negative', False)
+)
+
+@app.route('/result') def result():
+if 'questions' not in session:
+return redirect(url_for('index'))
+score = session.get('score', 0)
+total = len(session.get('questions', [])) answers = session.get('answers', []) questions = session.get('questions', [])
+feedback, level = get_feedback(max(score, 0), total)
+result_data = []
+for i, q in enumerate(questions):
+ans = answers[i] if i < len(answers) else {} result_data.append({
+'question': q['question'],
+'selected': ans.get('selected', 'Not answered'), 'correct_ans': q['answer'],
+'is_correct': ans.get('correct', False)
+})
+return render_template( 'result.html', score=score, total=total, feedback=feedback, level=level, result_data=result_data
+)
+
+@app.route('/restart') def restart():
+session.clear()
+return redirect(url_for('index'))
+
+if   name   == '  main  ':
+app.run(debug=True)
